@@ -3,29 +3,13 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
-const User = require('./schema/User.js')
+const User = require('./schema/User.js');
 require('./connection.js');
 
+const account = require('./routes/account')
 
-  const signUp = async(req, res) =>{ 
-    const body = req.body;
-  const thai =  await User.findOne({account : body.account}).exec();
-  console.log(thai);
-  if (thai === null) {
-    createUser(req, res);
-  }
-  else {
-    res.send('ten tai khoan da ton tai tren he thong');
-  }
-}
 
-const createUser = (req, res) => {
-  const {account, password} = req.body
-  User.create({account, password})
-  res.send('tao tai khoan thanh cong');
-}
-
-app.post('/create-user', signUp);
+app.post('/account/create-user', account.createUser);
 
 
 
@@ -35,6 +19,23 @@ const PORT = 9000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 let people = [
   {
