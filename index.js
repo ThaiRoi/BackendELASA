@@ -4,12 +4,23 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 const User = require('./schema/User.js');
+const Video = require('./schema/Video.js');
+
 require('./connection.js');
 
 const account = require('./routes/account')
+const video = require('./routes/video')
 
+app.post('/video/get-subtitle', video.getSubtitle);
+app.post('/video/get-video', video.getVideo);
 
+// dang ki
 app.post('/account/create-user', account.createUser);
+
+//dang nhap
+app.post('/account/login', account.login);
+
+
 
 
 

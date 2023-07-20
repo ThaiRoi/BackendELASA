@@ -23,10 +23,7 @@ const createUser = async (req, res) => {
   res.status(201).json({
     success: true,
     message: "we have landed safely on mars, let's go",
-    data: {
-      userId: thai._id,
-      account: thai.account,
-    }
+    data: thai
   })
 }
 
