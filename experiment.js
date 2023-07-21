@@ -6,8 +6,9 @@ const rawSubtitle = require('./schema/RawSubtitle');
 
 
  const findData = async () => {
-    const data = await rawSubtitle.find({_id: "64b8b784b38ea84f9b82377f"}).exec();
+    const data = await rawSubtitle.find({"captions.lang" : "en"}).limit(3).skip(0).exec();
     console.log(data);
+    //
     return data;
 }
 
