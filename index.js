@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 const User = require('./schema/User.js');
 const Video = require('./schema/Video.js');
-
+const quickstart= require('./quickstart.js');
 require('./connection.js');
 
 const account = require('./routes/account')
@@ -20,7 +20,20 @@ app.post('/account/create-user', account.createUser);
 //dang nhap
 app.post('/account/login', account.login);
 
-
+setTimeout(()=> {
+  youtubeapi.subscriptions.list({
+      auth : auth,
+      part: 'snippet,contentDetails',
+      mine: true,
+      maxResults: 50
+    }, (err, res) => {
+        if(err) {
+          console.log('The API returned an erroe: ', err);
+        }
+        console.log('response, please for the love of god: ', res.data.items[0]);
+  
+    });
+}, 3000)
 
 
 
