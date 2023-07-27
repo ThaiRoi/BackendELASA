@@ -1,7 +1,6 @@
 // ES6 / TypeScript
-import { getSubtitles } from 'youtube-captions-scraper';
-
-getSubtitles({
+const yt = require('youtube-captions-scraper')
+yt.getSubtitles({
   videoID: 'JT5RkjpgC10', // youtube video id
   lang: 'en' // default: `en`
 }).then(captions => {

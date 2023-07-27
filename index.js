@@ -3,16 +3,18 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
-const User = require('./schema/User.js');
-const Video = require('./schema/Video.js');
-const quickstart= require('./quickstart.js');
 require('./connection.js');
+// const User = require('./schema/User.js');
+// const Video = require('./schema/Video.js');
+// const quickstart= require('./quickstart.js');
+
 
 const account = require('./routes/account')
 const video = require('./routes/video')
 
 app.post('/video/get-subtitle', video.getSubtitle);
 app.post('/video/get-video', video.getVideo);
+app.get('/video/get-recommendation', video.getRecommendation);
 
 // dang ki
 app.post('/account/create-user', account.createUser);
@@ -20,20 +22,20 @@ app.post('/account/create-user', account.createUser);
 //dang nhap
 app.post('/account/login', account.login);
 
-setTimeout(()=> {
-  youtubeapi.subscriptions.list({
-      auth : auth,
-      part: 'snippet,contentDetails',
-      mine: true,
-      maxResults: 50
-    }, (err, res) => {
-        if(err) {
-          console.log('The API returned an erroe: ', err);
-        }
-        console.log('response, please for the love of god: ', res.data.items[0]);
+// setTimeout(()=> {
+//   youtubeapi.subscriptions.list({
+//       auth : auth,
+//       part: 'snippet,contentDetails',
+//       mine: true,
+//       maxResults: 50
+//     }, (err, res) => {
+//         if(err) {
+//           console.log('The API returned an erroe: ', err);
+//         }
+//         console.log('response, please for the love of god: ', res.data.items[0]);
   
-    });
-}, 3000)
+//     });
+// }, 3000)
 
 
 
