@@ -11,11 +11,13 @@ const searchSubtitle = async (req, res) => {
     console.log("this is body: ", body);
     //  
     const wordToFind = body.wordToFind;
-    const regexPattern = new RegExp(`\\b${wordToFind}\\b`, 'gi');
+    const trimmed = wordToFind.trim();
+    const escapedSearchTerm = trimmed.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regexPattern = new RegExp(`(?<!\\w|\\()${escapedSearchTerm}(?!\\w|\\))`, 'gi');
 
     //   const matchedSentences = Subtitle.caption.filter((sentence) => sentence.t.match(regexPattern));
     //const thai = await Subtitle.find({ videoid: ['64ba475a731586bc1987e300','64ba473b731586bc198794b8', '64ba473b731586bc198794e4'] ,"caption.t" : regexPattern }).limit(5).exec();  
-    const subResult = await Subtitle.find({ videoid: ['64ba475a731586bc1987e300', '64ba473b731586bc198794b8', '64ba473b731586bc198794e4'], "caption.t": regexPattern }).limit(5).exec();
+    const subResult = await Subtitle.find({"caption.t": regexPattern }).limit(50).exec();
     // console.log(subResult);
     //   console.log(subResult);
     if (subResult === []) {
@@ -29,11 +31,11 @@ const searchSubtitle = async (req, res) => {
         let videoResult = [];
         let finalRes = [];
         await subResult.forEach(async (value, index) => {
-            console.log("value: ", value.videoid);
+            //console.log("value: ", value.videoid);
             const video = await Video.findById(value.videoid).exec();
-            console.log("video: ", video);
+            //console.log("video: ", video);
             videoResult.push(video.videoid);
-            // console.log("video result: ",videoResult)
+             console.log("video result: ",videoResult)
             if (index == subResult.length - 1) {
                 axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoResult}&key=${apiKey}`)
                     .then(response => {

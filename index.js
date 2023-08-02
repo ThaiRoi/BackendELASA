@@ -18,7 +18,7 @@ app.get('/video/get-recommendation', video.getRecommendation);
 app.post('/video/search-subtitle', video.searchSubtitle);
 
 // dang ki
-app.post('/account/create-user', account.createUser);
+app.post('/account/sign-up', account.signUp);
 
 //dang nhap
 app.post('/account/login', account.login);
