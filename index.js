@@ -12,6 +12,8 @@ const Subtitle = require('./schema/Subtitle.js');
 const account = require('./routes/account')
 const video = require('./routes/video')
 
+app.post('/video/search-video',video.searchVideo);
+app.post('/video/watch-video', video.watchVideo);
 app.post('/video/get-subtitle', video.getSubtitle);
 app.post('/video/get-video', video.getVideo);
 app.get('/video/get-recommendation', video.getRecommendation);

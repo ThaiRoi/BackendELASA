@@ -5,7 +5,8 @@ const userSchema = mongoose.Schema({
     name: String,
     email: String,
     phone: String,
-    facebook: String
+    facebook: String,
+    ispro: Boolean
 })
 
 module.exports = mongoose.model('User', userSchema, 'User');

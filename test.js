@@ -2,8 +2,75 @@ const axios = require('axios');
 require('./connection.js');
 const Recommendation = require('./schema/Recommendation');
 require('./global.js');
-const Subtitle = require('./schema/Subtitle')
-const Video = require('./schema/Video.js');
+const Subtitle = require('./schema/Subtitle');
+const RawSubtitle = require('./schema/RawSubtitle.js');
+// const Video = require('./schema/Video.js');
+
+
+//   const youtubeScraper = require('youtube-captions-scraper');
+
+async function Test(){
+  const a = await Subtitle.updateMany( 
+    {},
+    
+      { $rename: { "videoid": "videorecordid" }}
+  
+    ,
+    { multi: true }
+ );
+
+ console.log(a)
+//   const a = await RawSubtitle.updateMany( 
+//     { "caption.t": { $exists: true },},
+//     [{
+//       $set: {
+//         caption: {
+//           $map: {
+//             input: "$caption",
+//             in: {
+//               text: "$$this.t",
+//               start: "$$this.-start",
+//               dur: "$$this.-dur"
+//             }
+//           }
+//         }
+//       }
+//     }],
+//     { multi: true }
+//  );
+
+
+
+
+// const a = await RawSubtitle.find({foo:{$exists:true}})
+    // youtubeScraper.getSubtitles({
+    //   videoID: 'OwMlnkUX354', // youtube video id
+    //   lang: 'en' // default: `en`
+    // }).then(captions => {
+    //   //console.log(captions);
+    //   if(captions==[]) {
+    //     // res.status(404).json({
+    //     //         error: "Video not found",
+    //     //         message: "from getSubtitle: the video subtitle not found in database"
+    //     //       })
+    //     console.log('nothing');
+    //   }
+    //   else {
+    //   //   res.status(200).json({
+    //   //   success: true,
+    //   //   message: "video subtitle found",
+    //   //   data: {
+    //   //     captions
+    //   //   }
+    //   // })
+
+    //   console.log(captions);
+    //   }
+      
+    // })
+    
+}
+
 // async function Test() {
 //     const recommendid = await Recommendation.find({isactive: true}).exec();
 //     //console.log(recommendid);
@@ -53,10 +120,10 @@ const Video = require('./schema/Video.js');
   
 // quickstart.getChannel();
 
-async function Test() {
+// async function Test() {
 
-  const video = await Video.findById('64ba473b731586bc198794e4').exec();
-  console.log(video);
+  // const video = await Video.findById('64ba473b731586bc198794e4').exec();
+  // console.log(video);
 
 
 //   const wordToFind = "milk";
@@ -105,8 +172,7 @@ async function Test() {
 //   const uniqueWordCounts = countUniqueWords(sentence);
   
 //   console.log(uniqueWordCounts);
-  
-}
+// }
 
 Test();
 

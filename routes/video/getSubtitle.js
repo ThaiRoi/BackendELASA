@@ -7,9 +7,9 @@ const getSubtitle = async (req, res) => {
   youtubeScraper.getSubtitles({
     videoID: body.videoid, // youtube video id
     lang: 'en' // default: `en`
-  }).then(captions => {
-    //console.log(captions);
-    if(captions==[]) {
+  }).then(caption => {
+    //console.log(caption);
+    if(caption==[]) {
       res.status(404).json({
               error: "Video not found",
               message: "from getSubtitle: the video subtitle not found in database"
@@ -20,7 +20,7 @@ const getSubtitle = async (req, res) => {
       success: true,
       message: "video subtitle found",
       data: {
-        captions
+        caption
       }
     })
     }

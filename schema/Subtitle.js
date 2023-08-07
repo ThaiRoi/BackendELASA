@@ -1,7 +1,7 @@
 const { default: mongoose } = require("mongoose");
 
 const subtitleSchema = mongoose.Schema({
-    videoid: String,
+    videorecordid: String,
     isauto: Boolean,
     caption: [mongoose.Schema.Types.Mixed],
 })

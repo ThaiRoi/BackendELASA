@@ -1,4 +1,3 @@
-const { forEach } = require('async');
 const Subtitle = require('../../schema/Subtitle')
 const Video = require('../../schema/Video');
 require('../../global')
@@ -17,7 +16,7 @@ const searchSubtitle = async (req, res) => {
 
     //   const matchedSentences = Subtitle.caption.filter((sentence) => sentence.t.match(regexPattern));
     //const thai = await Subtitle.find({ videoid: ['64ba475a731586bc1987e300','64ba473b731586bc198794b8', '64ba473b731586bc198794e4'] ,"caption.t" : regexPattern }).limit(5).exec();  
-    const subResult = await Subtitle.find({"caption.t": regexPattern }).limit(50).exec();
+    const subResult = await Subtitle.find({"caption.text": regexPattern }).limit(50).exec();
     // console.log(subResult);
     //   console.log(subResult);
     if (subResult === []) {
@@ -32,7 +31,7 @@ const searchSubtitle = async (req, res) => {
         let finalRes = [];
         await subResult.forEach(async (value, index) => {
             //console.log("value: ", value.videoid);
-            const video = await Video.findById(value.videoid).exec();
+            const video = await Video.findById(value.videorecordid).exec();
             //console.log("video: ", video);
             videoResult.push(video.videoid);
              console.log("video result: ",videoResult)
