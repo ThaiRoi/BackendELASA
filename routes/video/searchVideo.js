@@ -7,7 +7,7 @@ const searchVideo = (req, res)=>{
 console.log("it is i, search video")
 const keyword = req.body.keyword;
 console.log("keyowrd is:" , keyword);
-axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${keyword}&relevanceLanguage=en&key=${apiKey}`)
+axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${keyword}&relevanceLanguage=en&key=${apiKey}`)
     .then((response) =>{
         // console.log(response.data.items);
         for(let i=0;i<response.data.items.length;i++){

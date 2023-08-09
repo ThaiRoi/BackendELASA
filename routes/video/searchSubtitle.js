@@ -17,12 +17,12 @@ const searchSubtitle = async (req, res) => {
     //   const matchedSentences = Subtitle.caption.filter((sentence) => sentence.t.match(regexPattern));
     //const thai = await Subtitle.find({ videoid: ['64ba475a731586bc1987e300','64ba473b731586bc198794b8', '64ba473b731586bc198794e4'] ,"caption.t" : regexPattern }).limit(5).exec();  
     const subResult = await Subtitle.find({"caption.text": regexPattern }).limit(50).exec();
-    // console.log(subResult);
+    console.log("sub reult is",subResult);
     //   console.log(subResult);
-    if (subResult === []) {
+    if (subResult.length==0) {
         res.status(404).json({
             error: "Video not found",
-            message: "we can't find any video that has the word in your history or in our database"
+            message: "we can't find any video in your history or in our database that has the word you're looking for"
         })
     }
     else {
