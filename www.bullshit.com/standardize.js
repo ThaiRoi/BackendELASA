@@ -1,14 +1,120 @@
-require('./global.js');
-require('./connection.js');
+require('../global.js');
+require('../connection.js');
 const async = require('async');
-const rawSubtitle = require('./schema/RawSubtitle');
-const Subtitle = require('./schema/Subtitle');
-const Video = require('./schema/Video.js');
+const rawSubtitle = require('../schema/RawSubtitle.js');
+const Subtitle = require('../schema/Subtitle.js');
+const Video = require('../schema/Video.js');
 
-//second jopik process data: change name field of caption
+const Standardize = async() =>{
+    // //find all records in Subtitle 
+    // const sub = await Subtitle.find().limit(50000).skip(300000).exec();
+    // // console.log(sub);
+    // sub.forEach( async(element, index) => {
+    //     function getData(cb){
+    //         cb(null, element);
+    //     }
+    //     async function addVideoid(data){
+    //         const video = await Video.findOne({_id : data.videorecordid}).exec();
+    //     await (data.videoid = video.videoid);
+    //     data.save().then(result => {});
+    //     return (null, "done");
+    //     }
+    //     async.waterfall([
+    //         getData,
+    //         addVideoid
+    //     ], function (err, result) {
+    //         // console.log("error be like: ", err);
+    //         // result now equals 'done'
+    //         console.log("index: ", index);
+    //     });
+
+    // });
+
+//fuck
 
 
-//initial process Jopik's data
+    //find matching video record in Video
+    
+    // console.log(video);
+    //get videoid from the matching video record
+    //add videoid field
+    
+    // console.log(sub)
+    
+}
+
+Standardize();
+// second jopik process data: change name field of caption
+
+
+// initial process Jopik's data
+
+// const findData = async () => {
+//     const rawData = await rawSubtitle.find({ "captions.lang": "en" }).limit(10000).skip(310000).exec();
+//     //console.log(rawData);
+//     //
+
+//     rawData.forEach((element, index) => {
+
+//         function getData(cb) {
+//             //get from youtube 
+//             console.log("from get data function in waterfall: ", element)
+//             cb(null, element)
+//         }
+
+//         async function createVideoData(data) {
+//             const videoRecord = {
+//                 "videoid": data.video.videoid,
+//                 "title": data.video.title,
+//                 "viewcount": data.video.viewcount,
+//                 "duration": data.video.duration,
+//                 "thumbnailurl": "",
+//                 "category": data.video.category,
+//                 "uploaddate": data.video.uploaddate,
+//                 "channelid": data.video.channelid,
+//                 "channelname": data.video.channelname
+//             }
+
+//             const videoData = await Video.create(videoRecord);
+//             //console.log("running create videodata:", videoData);
+//             return (null, [videoData, data]);
+//         }
+
+//         async function createSubtitleData([videoData, originalData]) {
+//             //console.log("i'm going in");
+//             //console.log("originaldataUwU", originalData);
+//             //console.log("videodataAAAAAAa", videoData);
+//             const englishCaption = originalData.captions.find((caption) => (caption.lang === "en")).subtitles.transcript.text;
+//             const subtitleRecord = {
+//                 "videoid": videoData._id,
+//                 "isauto": false,
+//                 "caption": englishCaption
+//             }
+//             //console.log("new updated subtitle format: ", subtitleRecord);
+//             const subtitleData = await Subtitle.create(subtitleRecord);
+//             //console.log("running create subtitle data: ", subtitleData);
+//             return (null, "done");
+//         }
+
+
+//         async.waterfall([
+//             getData,
+//             createVideoData,
+//             createSubtitleData,
+//         ], function (err, result) {
+//             console.log("error be like: ", err);
+//             // result now equals 'done'
+//             console.log("result: ", result, "index: ", index);
+//         });
+
+//     });
+
+
+
+// }
+
+// findData();
+
 
 // // const sampleData = [
 // //     {
@@ -478,73 +584,4 @@ const Video = require('./schema/Video.js');
 // //         ]
 // //     }
 // // ]
-
-// const findData = async () => {
-//     const rawData = await rawSubtitle.find({ "captions.lang": "en" }).limit(10000).skip(310000).exec();
-//     //console.log(rawData);
-//     //
-
-//     rawData.forEach((element, index) => {
-
-//         function getData(cb) {
-//             //get from youtube 
-//             console.log("from get data function in waterfall: ", element)
-//             cb(null, element)
-//         }
-
-//         async function createVideoData(data) {
-//             const videoRecord = {
-//                 "videoid": data.video.videoid,
-//                 "title": data.video.title,
-//                 "viewcount": data.video.viewcount,
-//                 "duration": data.video.duration,
-//                 "thumbnailurl": "",
-//                 "category": data.video.category,
-//                 "uploaddate": data.video.uploaddate,
-//                 "channelid": data.video.channelid,
-//                 "channelname": data.video.channelname
-//             }
-
-//             const videoData = await Video.create(videoRecord);
-//             //console.log("running create videodata:", videoData);
-//             return (null, [videoData, data]);
-//         }
-
-//         async function createSubtitleData([videoData, originalData]) {
-//             //console.log("i'm going in");
-//             //console.log("originaldataUwU", originalData);
-//             //console.log("videodataAAAAAAa", videoData);
-//             const englishCaption = originalData.captions.find((caption) => (caption.lang === "en")).subtitles.transcript.text;
-//             const subtitleRecord = {
-//                 "videoid": videoData._id,
-//                 "isauto": false,
-//                 "caption": englishCaption
-//             }
-//             //console.log("new updated subtitle format: ", subtitleRecord);
-//             const subtitleData = await Subtitle.create(subtitleRecord);
-//             //console.log("running create subtitle data: ", subtitleData);
-//             return (null, "done");
-//         }
-
-
-//         async.waterfall([
-//             getData,
-//             createVideoData,
-//             createSubtitleData,
-//         ], function (err, result) {
-//             console.log("error be like: ", err);
-//             // result now equals 'done'
-//             console.log("result: ", result, "index: ", index);
-//         });
-
-//     });
-
-
-
-// }
-
-// findData();
-
-
-
 

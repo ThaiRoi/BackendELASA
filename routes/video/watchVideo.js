@@ -7,6 +7,7 @@ const youtubeScraper = require('youtube-captions-scraper');
 
 const watchVideo = async (req, res) => {
   const body = req.body;
+ 
   console.log("body: ", body);
   const thai = await Video.findOne({ videoid: body.videoid }).exec();
 //   console.log(thai);
@@ -19,6 +20,13 @@ let sub;
         videoID: body.videoid, // youtube video id
         lang: 'en' // default: `en`
       }).then(caption => {
+        if(caption==undefined){
+          caption = [{
+            text: 'unfortunately we cannot find the english subtitle to this video',
+            start: 1,
+            dur: 1
+          }]
+        }
         res.status(200).json({
             success: true,
             message: "video subtitle found",
@@ -36,8 +44,8 @@ let sub;
     axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${body.videoid}&key=${apiKey}`)
         .then( async (response) => {
             console.log(response.data.items);
-  
-            const video = await Video.create({
+          if(response.data.items){
+                 const video = await Video.create({
                 videoid: response.data.items[0].id,
                 title: response.data.items[0].snippet.title,
                 viewcount: 0,
@@ -52,9 +60,12 @@ let sub;
             //create subtitle record from video object id, youtube subtitle scraper
             Subtitle.create({
                 videorecordid: video._id,
+                videoid: video.videoid,
                 isauto: false,
                 caption: sub
             })
+          }
+       
         }
 
         )
@@ -69,7 +80,7 @@ let sub;
     // console.log("this is something: ", subtitle.caption);
     const caption = subtitle.caption;
     // console.log("this is caption: ", caption);
-    if(caption.length==0){
+    if(caption.length==0||caption==undefined){
       caption.push({
         text: 'unfortunately we cannot find the english subtitle to this video',
         start: 1,

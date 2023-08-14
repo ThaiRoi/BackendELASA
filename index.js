@@ -7,7 +7,7 @@ require('./connection.js');
 // const User = require('./schema/User.js');
 // const Video = require('./schema/Video.js');
 // const quickstart= require('./quickstart.js');
-const Subtitle = require('./schema/Subtitle.js');
+// const Subtitle = require('./schema/Subtitle.js');
 
 const account = require('./routes/account')
 const video = require('./routes/video')
@@ -20,11 +20,7 @@ app.post('/video/get-subtitle', video.getSubtitle);
 app.post('/video/get-video', video.getVideo);
 app.get('/video/get-recommendation', video.getRecommendation);
 app.post('/video/search-subtitle', video.searchSubtitle);
-
-// dang ki
 app.post('/account/sign-up', account.signUp);
-
-//dang nhap
 app.post('/account/login', account.login);
 
 // setTimeout(()=> {
@@ -42,11 +38,6 @@ app.post('/account/login', account.login);
 //     });
 // }, 3000)
 
-
-// // Assuming you have a collection named "captions"
-// Subtitle.createIndex({ "t": "text" });
-// const searchWord = "milk"; 
-// console.log(Subtitle.find({ $text: { $search: `/${searchWord}/i` } }));
 
 
 
