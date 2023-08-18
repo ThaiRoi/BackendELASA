@@ -79,15 +79,15 @@ const searchSubtitle = async (req, res) => {
                     })
                     .catch(error => {
 
-                        history.push({})
+               
 
                     });
             } else {
-                history.push({})
+    
             }
         }
         else {
-            history.push({})
+            
         }
         // console.log("this is history response:", history);
 
@@ -97,7 +97,7 @@ const searchSubtitle = async (req, res) => {
         console.log("find other is running")
         const subResult = await Subtitle.find({ "caption.text": regexPattern }).limit(50).exec();
         if (subResult.length == 0) {
-            other.push({})
+            
         }
         else {
             let videoResultId = [];
@@ -193,6 +193,18 @@ const searchSubtitle = async (req, res) => {
 
     // console.log("this is history", history);
     // console.log("this is other", other); 
+    if(history.length ==0){
+        history.push({
+            "videoid": "dQw4w9WgXcQ",
+            "title": "",
+        })
+    }
+    if(other.length ==0){
+        other.push({
+            "videoid": "dQw4w9WgXcQ",
+            "title": "",
+        })
+    }
     finalRes.history = history;
     finalRes.other = other;
 

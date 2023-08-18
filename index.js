@@ -2,8 +2,13 @@ require('./global.js');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-app.use(bodyParser.json());
+const multer = require('multer');
+const fs = require('fs');
 require('./connection.js');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}))
+
 // const User = require('./schema/User.js');
 // const Video = require('./schema/Video.js');
 // const quickstart= require('./quickstart.js');
@@ -11,6 +16,18 @@ require('./connection.js');
 
 const account = require('./routes/account')
 const video = require('./routes/video')
+app.use(express.static('public'));
+
+const upload = multer({ dest: './public/uploads/' })
+app.post('/uploadfile', upload.single('myFile'), (req, res, next) => {
+  const file = req.file
+  if (!file) {
+    const error = new Error('Please upload a file')
+    error.httpStatusCode = 400
+    return next(error)
+  }
+  res.send(file)
+})
 
 app.post('/video/create-history', video.createHistory);
 app.post('/video/get-history', video.getHistory);
