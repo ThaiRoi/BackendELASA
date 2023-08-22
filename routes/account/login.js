@@ -1,6 +1,7 @@
 const User = require('../../schema/User.js');
 
 const login = async (req, res) => {
+  console.log("loging time: " , req)
     const body = req.body;
     const thai = await User.findOne({ account: body.account }).exec();
     console.log(thai);
