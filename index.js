@@ -16,13 +16,14 @@ const Memo = require('./schema/Memo.js');
 
 const account = require('./routes/account')
 const video = require('./routes/video')
+const memo = require('./routes/memo')
 app.use(express.static('public'));
 
 const upload = multer({ dest: './public/uploads/' })
-app.post('/uploadfile', upload.single('myFile'), (req, res, next) => {
+app.post('/uploadfile', upload.single('myFile'), async (req, res, next) => {
   console.log("thisisFuke ",req.file);
   console.log("this is dada: ", req.body.data)
-  const data = req.body.data;
+  const data = JSON.parse(req.body.data);
   const file = req.file 
   if (file) {
     //process file: rename, get path
@@ -36,7 +37,8 @@ app.post('/uploadfile', upload.single('myFile'), (req, res, next) => {
   }
   //create memo record
   console.log("let's create memo records");
-  const newlyCreatedMemo = Memo.create({
+  console.log("test: ", data.title)
+  const newlyCreatedMemo = await Memo.create({
     title: data.title,
     userid: data.userid,
     username: data.username,
@@ -45,12 +47,14 @@ app.post('/uploadfile', upload.single('myFile'), (req, res, next) => {
    videoid: data.videoid,
    captionstart: data.captionstart
   })
+  console.log(newlyCreatedMemo)
   res.status(200).json({
     success: true,
     message: "video found",
     data: newlyCreatedMemo
   })
 })
+app.post('/memo/get-memo', memo.getMemo);
 
 app.post('/video/create-history', video.createHistory);
 app.post('/video/get-history', video.getHistory);
