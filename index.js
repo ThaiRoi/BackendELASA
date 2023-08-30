@@ -8,7 +8,7 @@ require('./connection.js');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}))
-
+const Memo = require('./schema/Memo.js');
 // const User = require('./schema/User.js');
 // const Video = require('./schema/Video.js');
 // const quickstart= require('./quickstart.js');
@@ -20,13 +20,36 @@ app.use(express.static('public'));
 
 const upload = multer({ dest: './public/uploads/' })
 app.post('/uploadfile', upload.single('myFile'), (req, res, next) => {
-  const file = req.file
-  if (!file) {
-    const error = new Error('Please upload a file')
-    error.httpStatusCode = 400
-    return next(error)
+  console.log("thisisFuke ",req.file);
+  console.log("this is dada: ", req.body.data)
+  const data = req.body.data;
+  const file = req.file 
+  if (file) {
+    //process file: rename, get path
+    console.log(file);
+    fs.rename(`./public/uploads/${file.filename}`,`./public/uploads/${file.filename}.jpeg` , (a)=>{
+      console.log("newfilename: ", a)
+    })
   }
-  res.send(file)
+  else {
+    console.log("ohno no file aaaaaaaaaaaaaaaaaa");
+  }
+  //create memo record
+  console.log("let's create memo records");
+  const newlyCreatedMemo = Memo.create({
+    title: data.title,
+    userid: data.userid,
+    username: data.username,
+    description: data.description,
+    imageurl: file ? file.filename : "",
+   videoid: data.videoid,
+   captionstart: data.captionstart
+  })
+  res.status(200).json({
+    success: true,
+    message: "video found",
+    data: newlyCreatedMemo
+  })
 })
 
 app.post('/video/create-history', video.createHistory);

@@ -1,11 +1,11 @@
 const memoSchema = mongoose.Schema({
     title: String,
     userid: String,
-    videoid: String,
-    comprehensionlevel: [Number],
-    watchdate: [Number],
-    timeswatched: Number,
-    watchtime: Number
+    username: String,
+    description: String,
+    imageurl: String,
+   videoid: String,
+   captionstart: Number
  })
  
  module.exports = mongoose.model('Memo', memoSchema, 'Memo');

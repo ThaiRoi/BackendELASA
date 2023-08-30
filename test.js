@@ -5,14 +5,24 @@ require('./global.js');
 const Subtitle = require('./schema/Subtitle');
 const RawSubtitle = require('./schema/RawSubtitle.js');
 // const Video = require('./schema/Video.js');
-
+const fs = require('fs');
+ 
 
 //   const youtubeScraper = require('youtube-captions-scraper');
 
 async function Test(){
 
-  
+  fs.rename('./public/uploads/ma.jpeg', './public/uploads/a.jpeg', file =>{
+    console.log(file);
+  })
 
+
+
+}
+
+
+
+Test();
 
 
 //   const testSubtitleDb = {
@@ -179,8 +189,6 @@ async function Test(){
       
     // })
     
-}
-
 // async function Test() {
 //     const recommendid = await Recommendation.find({isactive: true}).exec();
 //     //console.log(recommendid);
@@ -283,9 +291,6 @@ async function Test(){
   
 //   console.log(uniqueWordCounts);
 // }
-
-Test();
-
   // {"config": 
   //   {"adapter": ["xhr", "http"], 
   //   "data": "{\"wordToFind\":\"Milk\"}", 
